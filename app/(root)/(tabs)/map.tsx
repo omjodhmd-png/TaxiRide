@@ -12,15 +12,24 @@ const { width, height } = Dimensions.get("window");
 
 
 
+
 export default function TabTwoScreen() {
 
+  
   const [isEnabled, setIsEnabled] = useState(false);
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const [place, setplace] = useState([]);
+
+
+ 
+
+
+  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#008080" }}>
+
       <View style={styles.container}>
         <MapView
           style={styles.map}
@@ -37,26 +46,9 @@ export default function TabTwoScreen() {
               key={item.id}
               coordinate={item.coordinates}
               title={item.driver}
-            >
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width:60
-                }}
-              >
-                {/* <Image
-                  source={require('@/assets/images/taه.png')}
-                  style={{
-                    width: 60,   
-                    height: 50,
-                    
-                    resizeMode: 'contain',  
-                  }}
-                /> */}
-              
-              </View>
-            </Marker>))}
+            />
+
+          ))}
 
 
           {places.map((item) => (
@@ -83,26 +75,38 @@ export default function TabTwoScreen() {
       <TouchableOpacity style={styles.maplase}>
         <Ionicons name="locate" size={50} color="blue" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.reserv} onPress={() => router.push("/(root)/(tabs)/resirve")}>
+      <TouchableOpacity style={styles.reserv} onPress={() => { router.push("/(root)/resirve") }}>
         <Text style={styles.btreserv}>Resirve</Text>
       </TouchableOpacity>
+
 
 
     </SafeAreaView >)
 }
 const styles = StyleSheet.create({
+  view: {
+    backgroundColor: "red",
+    width: "100%", height: 300,
+    borderRadius: 20,
+
+    position: "absolute",
+
+
+  },
   container: {
     flex: 1,
   },
   switchV: {
+
+    justifyContent: "center",
     gap: 120,
+
     flex: 1,
     flexDirection: "row",
     marginTop: 40,
-    marginLeft: 50,
     position: "absolute",
     // backgroundColor:"#008080",
-    width: 300,
+    width: "100%",
     // borderRadius:20,
     backgroundColor: "rgba(255,255,255,0.15)",
     borderRadius: 20,
@@ -141,27 +145,29 @@ const styles = StyleSheet.create({
     color: "white"
   },
   maplase: {
-    left: 300,
-    top: 650,
+    width:width,
+    top: height*0.8,
+    alignItems:"flex-end",
     position: "absolute",
   },
   reserv: {
     position: "absolute",
     marginTop: height * 0.87,
-    marginLeft: width * 0.3,
-    backgroundColor: "#008080",
-    width: 150,
-    height: 35,
-    borderRadius: 20,
-    justifyContent: "center",
+    width: width,
     alignItems: "center",
-    elevation: 5
-
   },
   btreserv: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 15
+    fontSize: 15,
+    backgroundColor: "#008080",
+    elevation: 5,
+    width: 150,
+    height: 35,
+    borderRadius: 20,
+    paddingLeft: 45,
+    paddingTop: 5
+
   }
 
 });

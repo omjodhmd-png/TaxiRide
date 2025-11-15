@@ -10,7 +10,7 @@ export default function TabLayout() {
 
   return (
     <Stack screenOptions={ {headerShown: false}}>
-    <Stack.Screen name="index" options={{ headerShown: false }} />
+    <Stack.Screen name="resirve" options={{ headerShown: false }} />
     </Stack>
   );
 }

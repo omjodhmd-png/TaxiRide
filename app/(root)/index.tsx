@@ -14,7 +14,7 @@ export default function HomeScreen() {
   const [active, steactive] = useState(0)
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#008080" }}>
-
+      <View style={{flex:1,paddingBottom:70}}>
       <View style={{ alignItems: "flex-end", margin: 10 }}>
         <TouchableOpacity onPress={() => { router.push("/map") }} style={{ justifyContent: "flex-end" }}>
           <Text style={{ fontWeight: "bold", color: "white" }}>Skip</Text>
@@ -42,7 +42,7 @@ export default function HomeScreen() {
         ))}
       </Swiper>
 
-
+      </View>
 
 
     </SafeAreaView>
