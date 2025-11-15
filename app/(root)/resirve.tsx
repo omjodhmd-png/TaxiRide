@@ -123,11 +123,12 @@ export default function HomeScreen() {
             setOpen={setOpen}
             setValue={setValue}
             setItems={setItems}
-            placeholder="where are you"
+            placeholder="where are you "
             listMode="SCROLLVIEW"
             dropDownContainerStyle={{ maxHeight: 150 }}
-
-
+            
+            scrollViewProps={{
+              nestedScrollEnabled: true,}}
           />
         </View>
         <View style={styles.container2}>
