@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
-import { Link, Redirect } from 'expo-router';
+import { Link, Redirect, router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Dimensions, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const { width, height } = Dimensions.get("window");
 import DropDownPicker from "react-native-dropdown-picker";
@@ -10,6 +10,7 @@ import { taxis } from "@/constants/plases";
 import { calculateDistance } from '../../constants/calcule';
 import { calculatePrice } from '../../constants/calcule';
 import { calculateTime } from '../../constants/calcule';
+import { useVisitedStore } from "@/stor/visitedstor";
 
 import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
 
@@ -34,7 +35,7 @@ export default function HomeScreen() {
 
   const animeted1 = () => {
 
-    translate1Y.value = withTiming(-700, { duration: 1000, delay: 500 })
+    translate1Y.value = withTiming(-height*0.75, { duration: 1000, delay: 500 })
   };
   const tapAnimatedStyle1 = useAnimatedStyle(() => {
     return {
@@ -53,6 +54,14 @@ export default function HomeScreen() {
     }
   })
 
+
+  const loadVisitedPlaces = useVisitedStore(state => state.loadVisitedPlaces);
+  const saveVisitedPlace = useVisitedStore(state => state.saveVisitedPlace);
+
+  useEffect(() => {
+    loadVisitedPlaces();
+  }, []);
+  
 
 
 
@@ -151,6 +160,7 @@ export default function HomeScreen() {
           animeted();
           animeted1();
           animetedX();
+          
         }}>
           <Text style={styles.but}>
             GO To Cart
@@ -184,10 +194,21 @@ export default function HomeScreen() {
             <Text style={styles.inf1}>Totl price : {price !== null ? price + " DH" : "-"}</Text>
           </View >
 
-          <TouchableOpacity style={{
-            width: 150, backgroundColor: "white", height: 40, marginTop: 20, justifyContent: "center",
-            alignItems: "center", borderRadius: 20, marginLeft: 90
-          }}>
+          <TouchableOpacity style={styles.booking}  onPress={()=>{
+            if (selectedPlace) {
+            saveVisitedPlace(selectedPlace.name);
+            Alert.alert(
+              "Reservation",
+              "Your taxi has been successfully reserved! 🚕",
+              [
+                {
+                  text: "OK",
+                  onPress: () => router.push("/map"),
+                }
+              ]
+            );
+          
+          }}}>
             <Text style={{ fontSize: 20, fontWeight: "bold", color: "#008080" }}>booking</Text>
           </TouchableOpacity>
         </Animated.View>
@@ -200,6 +221,12 @@ export default function HomeScreen() {
 
 }
 const styles = StyleSheet.create({
+  booking:{
+    width: 150, backgroundColor: "white", height: 40, marginTop: 20, justifyContent: "center",
+    alignItems: "center", borderRadius: 20, marginLeft: 90
+  },
+  
+  
   hhh: { flex: 1 },
   inf: {
     color: "#008080",
@@ -249,13 +276,15 @@ const styles = StyleSheet.create({
   container1: {
     marginTop: 10,
     paddingHorizontal: 20,
-    zIndex: 4000
+    zIndex: 4000,
+    elevation:4000
 
   },
   container2: {
     marginTop: 20,
     paddingHorizontal: 20,
     zIndex: 2000,
+    elevation:2000
 
 
 
